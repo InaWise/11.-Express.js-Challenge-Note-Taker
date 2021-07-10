@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs')
 var app = express();
-var port = 3000;
+const PORT = process.env.PORT || 3001;
 // var static_dir = ('backend', 'public');
 var db_dir = ('backend', 'db');
 var db = db_dir + '/db.json';
