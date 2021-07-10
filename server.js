@@ -1,36 +1,35 @@
-express = require('express');
+const express = require('express');
 const fs = require('fs')
 var app = express();
-var multer = require('multer');
-var upload = multer();
 var port = 3000;
-var static_dir = __dirname.replace('backend', 'public');
-var db_dir = __dirname.replace('backend', 'db');
+// var static_dir = ('backend', 'public');
+var db_dir = ('backend', 'db');
 var db = db_dir + '/db.json';
+const path =require('path')
 
 const { 
     v1: uuidv1,
     v4: uuidv4,
-  } = require('uuid');
-  
-app.use(express.static(static_dir));
+} = require('uuid');
+
+app.use(express.static('public'));
 // for parsing application/json
 app.use(express.json()); 
 
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true })); 
 
-// for parsing multipart/form-data
-app.use(upload.array()); 
+
 
 app.get('/notes', function(req, res){
     console.log("get /notes ")
-    res.sendFile('notes.html', {root: static_dir});
+    // res.sendFile('notes.html', {root: static_dir});
+    res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
 app.get('/api/notes', function(req, res) {
     fs.readFile(db, 'utf8', function (err,data) {
         if (err) {
-          return console.log(err);
+        return console.log(err);
         }
         let notes = JSON.parse(data);
         res.send(notes);
