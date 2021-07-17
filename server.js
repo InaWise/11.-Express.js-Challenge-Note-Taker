@@ -64,5 +64,7 @@ app.post('/api/notes', function(req, res){
 
     res.sendFile('notes.html', {root: static_dir});
 });
-app.listen(port);
-console.log('Starting server on port ' + port);
+
+
+// Start the server on the port
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
